@@ -2,9 +2,16 @@ package br.com.alura.literalura.principal;
 
 import java.util.Scanner;
 
+import br.com.alura.literalura.model.Livro;
+import br.com.alura.literalura.service.ConsumoApi;
+import br.com.alura.literalura.service.ConverteDados;
+import br.com.alura.literalura.service.ResponseApi;
+
 public class Principal {
     
     private Scanner leitura = new Scanner(System.in);
+    private ConsumoApi consumoApi = new ConsumoApi();
+    private ConverteDados conversor = new ConverteDados();
 
     public void exibeMenu() {
 
@@ -54,7 +61,17 @@ public class Principal {
     }
 
     private void buscarLivroPeloTitulo() {
-       
+
+        System.out.println("Qual livro deseja buscar? ");
+        var busca = leitura.nextLine().replace(" ", "+").toLowerCase();
+        var json = consumoApi.obterDados(busca);
+
+        ResponseApi responseApi = conversor.obterDados(json, ResponseApi.class);
+        // System.out.println(responseApi);
+        Livro livro = new Livro(responseApi);
+        System.out.println(livro);
+
+
     }
     
     private void listarLivrosCadastrados() {
