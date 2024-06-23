@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public record LivroGutendex(
         @JsonProperty("title") String titulo,
         @JsonAlias("authors") List<AutorGutendex> autor,
-        @JsonAlias("languages") ArrayList<String> idioma) {
+        @JsonAlias("languages") ArrayList<String> idioma,
+        @JsonAlias("download_count") Integer totalDownloads) {
 
 }
